@@ -10,56 +10,6 @@ import xml.etree.ElementTree as ET
 
 YOUTUBE_DL = "/usr/local/bin/youtube-dl"
 
-def derive_download_links(input_xml):
-    cache = dbm.open("yt2pod.cache", "c")
-
-    xml_string_file = StringIO.StringIO(input_xml)
-    tree = ET.parse(xml_string_file)
-    root = tree.getroot()
-
-    for child in root:
-        if child.tag.endswith('entry'):
-            # pick out the main YouTube URL
-            link_elem = child.find('{http://www.w3.org/2005/Atom}link')
-            yt_link = link_elem.get("href")
-            if yt_link in cache:
-                cached = json.loads(cache[yt_link])
-                dl_link = cached['dl_link']
-                dl_size = cached['dl_size']
-            else:
-                # invoke youtube-dl to fetch the download link
-                cmd = YOUTUBE_DL + " --get-url --format 140 " + yt_link
-                (status, dl_link) = commands.getstatusoutput(cmd)
-
-                # invoke requests module with a HEAD request to get size
-                head_req = requests.head(dl_link)
-                dl_size = head_req.headers['Content-Length']
-
-                # cache the downloaded information
-                cached = { 'dl_link': dl_link,
-                    'dl_size': dl_size
-                }
-                cache[yt_link] = json.dumps(cached)
-
-            # create a new element and insert into the item
-            attrib = { 'url': dl_link,
-                'type': 'audio/mpeg',
-                'length': dl_size
-            }
-            enclosure = ET.Element("enclosure", attrib)
-            child.insert(0, enclosure)
-
-            # remove irrelevant elements
-            child.remove(link_elem)
-            elem = child.find('{http://www.w3.org/2005/Atom}author')
-            child.remove(elem)
-            elem = child.find('{http://www.w3.org/2005/Atom}id')
-            child.remove(elem)
-
-    output_xml = StringIO.StringIO()
-    tree.write(output_xml, encoding="UTF-8", xml_declaration=True)
-    return output_xml.getvalue()
-
 def transform_rss_xml(input_xml, verbose=False, refresh=False):
     cache = dbm.open("yt2pod.cache", "c")
 
