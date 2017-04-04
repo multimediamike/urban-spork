@@ -1,0 +1,5 @@
+yt2pod.cache.db
+yt2pod.conf.json
+*.swp
+*.pyc
+
