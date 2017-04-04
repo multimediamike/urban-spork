@@ -4,6 +4,7 @@ import BaseHTTPServer
 import commands
 import getopt
 import json
+import os
 import requests
 import sys
 
@@ -72,7 +73,8 @@ def usage():
 if __name__ == '__main__':
 
     port = DEFAULT_HTTP_PORT
-    feed_list = json.loads(open(CONF_JSON, "r").read())
+    if os.path.exists(CONF_JSON):
+        feed_list = json.loads(open(CONF_JSON, "r").read())
 
     # process command line arguments
     opts, args = getopt.getopt(sys.argv[1:], "chp:r", ["cache", "help", "port=", "refresh"])
@@ -88,6 +90,9 @@ if __name__ == '__main__':
                 print "Invalid port number"
                 sys.exit()
         elif opt in ("-c", "--cache", "-r", "--refresh"):
+            if len(feed_list) == 0:
+                print "Feed list is empty (or '%s' does not exist)" % (CONF_JSON)
+                sys.exit(0)
             force_refresh = False
             if opt in ("-r", "--refresh"):
                 force_refresh = True
