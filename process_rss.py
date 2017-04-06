@@ -1,5 +1,9 @@
 #!/usr/bin/python
 
+# process_rss.py
+#  by Mike Melanson (mike -at- multimedia.cx)
+# Part of the YouTube2Podcast project.
+
 import commands
 import dbm
 import json

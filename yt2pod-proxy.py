@@ -1,5 +1,9 @@
 #!/usr/bin/python
 
+# yt2pod-proxy.py
+#  by Mike Melanson (mike -at- multimedia.cx)
+# Part of the YouTube2Podcast project.
+
 import BaseHTTPServer
 import commands
 import getopt
