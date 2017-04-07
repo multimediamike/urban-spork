@@ -1,8 +1,8 @@
 #!/usr/bin/python
 
-# yt2pod-proxy.py
+# urban-spork.py
 #  by Mike Melanson (mike -at- multimedia.cx)
-# Part of the YouTube2Podcast project.
+# Proxy to access YouTube channels as audio podcasts.
 
 import BaseHTTPServer
 import commands
@@ -16,7 +16,7 @@ import process_rss
 
 DEFAULT_HTTP_PORT = 54321
 FEED_BASE_URL = "https://www.youtube.com/feeds/videos.xml?"
-CONF_JSON = "yt2pod.conf.json"
+CONF_JSON = "urban-spork.conf.json"
 
 feed_list = {}
 
@@ -68,7 +68,7 @@ def run(port,
 
 
 def usage():
-    print """USAGE: yt2pod-server.py <options>
+    print """USAGE: urban-spork.py <options>
   -h, --help: Print this message
   -p, --port=[number]: Port on which to run the HTTP server
   -c, --cache: Request to pre-process a feed into the cache

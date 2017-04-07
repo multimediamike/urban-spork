@@ -2,7 +2,7 @@
 
 # process_rss.py
 #  by Mike Melanson (mike -at- multimedia.cx)
-# Part of the YouTube2Podcast project.
+# Part of the urban-spork project.
 
 import commands
 import dbm
@@ -15,7 +15,7 @@ import xml.etree.ElementTree as ET
 YOUTUBE_DL = "/usr/local/bin/youtube-dl"
 
 def transform_rss_xml(input_xml, verbose=False, refresh=False):
-    cache = dbm.open("yt2pod.cache", "c")
+    cache = dbm.open("urban-spork.cache", "c")
 
     xml_string_file = StringIO.StringIO(input_xml)
     in_tree = ET.parse(xml_string_file)
