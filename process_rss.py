@@ -12,7 +12,7 @@ import StringIO
 import sys
 import xml.etree.ElementTree as ET
 
-YOUTUBE_DL = "/usr/local/bin/youtube-dl"
+YOUTUBE_DL = "./youtube-dl"
 
 def transform_rss_xml(input_xml, verbose=False, refresh=False):
     cache = dbm.open("urban-spork.cache", "c")
