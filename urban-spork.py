@@ -28,7 +28,7 @@ def get_yt_rss_feed(req_path):
     r = requests.get(feed_url)
     return (r.status_code, r.text)
 
-class YT2PodHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+class UrbanSporkHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 
     def do_GET(self):
         if self.path == "/":
@@ -60,10 +60,10 @@ class YT2PodHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 
 def run(port,
         server_class=BaseHTTPServer.HTTPServer,
-        handler_class=YT2PodHandler):
+        handler_class=UrbanSporkHandler):
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
-    print "YT2Pod server running on port %d... (Ctrl-C to exit)" % (port)
+    print "urban-spork server running on port %d... (Ctrl-C to exit)" % (port)
     httpd.serve_forever()
 
 
