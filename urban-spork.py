@@ -72,6 +72,7 @@ def usage():
   -h, --help: Print this message
   -p, --port=[number]: Port on which to run the HTTP server
   -c, --cache: Request to pre-process a feed into the cache
+  -r, --refresh: Clear the cache for a specific feed and then re-cache
 """
 
 if __name__ == '__main__':
