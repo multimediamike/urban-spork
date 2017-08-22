@@ -79,7 +79,7 @@ def transform_rss_xml(input_xml, verbose=False, refresh=False):
                 dl_size = cached['dl_size']
             else:
                 # invoke youtube-dl to fetch the download link
-                cmd = YOUTUBE_DL + " --get-url --format 140 " + yt_link
+                cmd = YOUTUBE_DL + " --get-url --format 140 " + yt_link + " 2> /dev/null"
                 if verbose:
                     print "caching..."
                 (status, dl_link) = commands.getstatusoutput(cmd)
