@@ -83,6 +83,9 @@ def transform_rss_xml(input_xml, verbose=False, refresh=False):
                 if verbose:
                     print "caching..."
                 (status, dl_link) = commands.getstatusoutput(cmd)
+                if status != 0:
+                    print "Could not download '%s'; paste URL into browser to learn why" % (yt_link)
+                    continue
 
                 # invoke requests module with a HEAD request to get size
                 head_req = requests.head(dl_link)
